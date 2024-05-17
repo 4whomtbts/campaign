@@ -13,7 +13,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
-import java.lang.IllegalArgumentException
+import kotlin.IllegalArgumentException
 
 @Entity
 class Product(
@@ -44,6 +44,12 @@ class Product(
         HAT(5, "모자"),
         SOCKS(6, "양말"),
         ACCESSORIES(7, "액세서리"),
+        ;
+
+        companion object {
+            fun ofCode(code: Int): ProductCategory =
+                values().find { it.code == code } ?: throw IllegalArgumentException("존재하지 않는 코드의 카테고리입니다.")
+        }
     }
 
     @Converter(autoApply = true)
