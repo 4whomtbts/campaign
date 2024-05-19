@@ -40,7 +40,7 @@ class ProductRepositoryImpl(
             )
         } as List<Product>
 
-    override fun selectMinPriceProductInAllCategoriesByBrand(): List<MinPriceProductInAllCategoryByBrand> =
+    override fun selectMinPriceProductInAllCategoryByBrand(): List<MinPriceProductInAllCategoryByBrand> =
         executor.findAll {
             selectNew<MinPriceProductInAllCategoryByBrand>(
                 path(Product::brand)(Brand::id),

@@ -42,7 +42,7 @@ class ProductRepositoryImplTest(
     }
 
     @Nested
-    inner class C {
+    inner class `SelectMinPriceProductInAllCategoryByBrandContext` {
         @Test
         fun `각 브랜드가 모든 카테고리 각각에서 최저가로 판매하는 상품을 반환한다`() {
             val brandA = saveBrand(brandName = "A")
@@ -64,7 +64,7 @@ class ProductRepositoryImplTest(
                 saveProduct(Product.ProductCategory.BAG, 1L, brandB),
             )
 
-            val products = sut.selectMinPriceProductInAllCategoriesByBrand()
+            val products = sut.selectMinPriceProductInAllCategoryByBrand()
             assertEquals(4, products.size)
             assertTrue(
                 products.containsAll(
@@ -72,7 +72,6 @@ class ProductRepositoryImplTest(
                         MinPriceProductInAllCategoryByBrand(
                             brandId = it.brand.id,
                             brandName = it.brand.brandName,
-//                            category = it.category.code,
                             category = it.category,
                             price = it.price,
                         )

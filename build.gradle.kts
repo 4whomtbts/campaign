@@ -4,10 +4,10 @@ plugins {
     val kotlinVersion = "1.7.20"
     id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
+    id("com.adarshr.test-logger") version "4.0.0"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     kotlin("plugin.jpa") version kotlinVersion
-//    kotlin("plugin.allopen") version kotlinVersion
 }
 
 group = "com.campaign"
@@ -56,4 +56,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+testlogger {
+    showPassed = true
+    showSkipped = true
+    showFailed = true
 }
