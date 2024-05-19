@@ -1,5 +1,6 @@
 package com.campaign.controller.operation.brand
 
+import com.campaign.controller.DefaultResponse
 import com.campaign.controller.operation.brand.model.request.BrandCreateReq
 import com.campaign.controller.operation.brand.model.request.BrandDeleteReq
 import com.campaign.controller.operation.brand.model.request.BrandDetail
@@ -20,32 +21,40 @@ class BrandOperationController(
     @PostMapping("/brands")
     fun createBrands(
         @RequestBody req: BrandCreateReq,
-    ) {
-        brandOperationService.createBrands(req.brands.map(BrandDetail::brandName))
+    ): DefaultResponse {
+        return brandOperationService.createBrands(req.brands.map(BrandDetail::brandName))
+            .let {
+                DefaultResponse.ok()
+            }
     }
 
     @PutMapping("/brands")
     fun updateBrands(
         @RequestBody req: BrandUpdateReq,
-    ) {
-        brandOperationService.updateBrands(
+    ): DefaultResponse {
+        return brandOperationService.updateBrands(
             req.brands.map {
                 BrandOperationService.BrandUpdate(
                     brandId = it.brandId,
                     brandName = it.updatedBrandName,
                 )
             },
-        )
+        ).let {
+            DefaultResponse.ok()
+        }
     }
 
     @DeleteMapping("/brands")
     fun deleteBrands(
         @RequestBody req: BrandDeleteReq,
-    ) {
-        brandOperationService.deleteBrands(
+    ): DefaultResponse {
+        return brandOperationService.deleteBrands(
             req.targets.map {
                 BrandOperationService.BrandDelete(it.brandId)
             },
         )
+            .let {
+                DefaultResponse.ok()
+            }
     }
 }

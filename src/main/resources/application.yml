@@ -26,6 +26,12 @@ spring:
       enabled: true
       path: /console
 
+server:
+  error:
+    whitelabel:
+      enabled: false
+  shutdown: graceful
+
 ---
 spring.config.activate.on-profile: sandbox
 

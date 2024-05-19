@@ -2,6 +2,7 @@ package com.campaign.service.operation.product
 
 import com.campaign.domain.brand.BrandRepository
 import com.campaign.domain.product.Product
+import com.campaign.domain.product.ProductPrice
 import com.campaign.domain.product.ProductRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,7 +20,7 @@ class ProductOperationService(
                 ?: throw IllegalArgumentException("존재하지 않는 브랜드 입니다. brandId = ${it.brandId}")
             Product(
                 brand = brand,
-                price = it.price,
+                price = it.price.value,
                 category = Product.ProductCategory.ofCode(it.productCategoryCode),
             )
         }.let {
@@ -40,7 +41,7 @@ class ProductOperationService(
                 throw IllegalArgumentException("동일한 상품에 대해서 복수의 업데이트 요청을 할 수 없습니다. productId = ${it.id}")
             }
             val update = productUpdate.first()
-            it.price = update.updatedPrice
+            it.price = update.updatedPrice.value
         }
     }
 
@@ -57,12 +58,12 @@ class ProductOperationService(
     data class ProductCreate(
         val brandId: Long,
         val productCategoryCode: Int,
-        val price: Long,
+        val price: ProductPrice,
     )
 
     data class ProductUpdate(
         val productId: Long,
-        val updatedPrice: Long,
+        val updatedPrice: ProductPrice,
     )
 
     data class ProductDelete(

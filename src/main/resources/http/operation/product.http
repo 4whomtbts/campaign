@@ -1,13 +1,13 @@
-### 브랜드 추가
+### 상품 추가
 POST http://localhost:8080/operation/v1/products
 Content-Type: application/json
 
 {
   "products": [
     {
-      "brandId": 0,
+      "brandId": 5,
       "productCategoryCode": 0,
-      "price": 10000
+      "price": 500
     }
   ]
 }
