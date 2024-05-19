@@ -18,6 +18,8 @@ class ProductRepositoryImpl(
                 min(Product::price).alias(expression("price1")),
             ).from(
                 entity(Product::class),
+            ).where(
+                path(Product::deactivatedAt).isNull(),
             ).groupBy(
                 path(Product::category),
             ).asEntity("minPrices")
@@ -33,6 +35,8 @@ class ProductRepositoryImpl(
                         path(Product::price).eq(expression("price1")),
                     ),
                 ),
+            ).where(
+                path(Product::deactivatedAt).isNull(),
             )
         } as List<Product>
 
@@ -45,7 +49,9 @@ class ProductRepositoryImpl(
                 min(path(Product::price)),
             ).from(
                 entity(Product::class),
-                innerJoin(Product::brand),
+                innerJoin(Product::brand).on(path(Brand::deactivatedAt).isNull()),
+            ).where(
+                path(Product::deactivatedAt).isNull(),
             ).groupBy(
                 path(Product::brand),
                 path(Product::category),
@@ -64,10 +70,11 @@ class ProductRepositoryImpl(
             select(product)
                 .from(
                     product,
-                    innerJoin(Product::brand),
+                    innerJoin(Product::brand).on(path(Brand::deactivatedAt).isNull()),
                 )
-                .where(
+                .whereAnd(
                     path(Product::category).eq(category),
+                    path(Product::deactivatedAt).isNull(),
                 )
                 .orderBy(sort)
         }.content.let {
