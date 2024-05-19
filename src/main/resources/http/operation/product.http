@@ -1,0 +1,38 @@
+### 브랜드 추가
+POST http://localhost:8080/operation/v1/products
+Content-Type: application/json
+
+{
+  "products": [
+    {
+      "brandId": 0,
+      "productCategoryCode": 0,
+      "price": 10000
+    }
+  ]
+}
+
+### 상품 업데이트
+PUT http://localhost:8080/operation/v1/products
+Content-Type: application/json
+
+{
+  "products": [
+    {
+      "productId": 73,
+      "updatedPrice": 99999999
+    }
+  ]
+}
+
+### 상품 삭제
+DELETE http://localhost:8080/operation/v1/products
+Content-Type: application/json
+
+{
+  "targets": [
+    {
+      "productId": 73
+    }
+  ]
+}

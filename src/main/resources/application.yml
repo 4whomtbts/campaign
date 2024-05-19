@@ -21,6 +21,11 @@ spring:
         format_sql: true
     show-sql: true
 
+  h2:
+    console:
+      enabled: true
+      path: /console
+
 ---
 spring.config.activate.on-profile: sandbox
 

@@ -1,0 +1,36 @@
+### 브랜드 추가
+POST http://localhost:8080/operation/v1/brands
+Content-Type: application/json
+
+{
+  "brands": [
+    {
+      "brandName": "새로운 브랜드"
+    }
+  ]
+}
+
+### 브랜드 업데이트
+PUT http://localhost:8080/operation/v1/brands
+Content-Type: application/json
+
+{
+  "brands": [
+    {
+      "brandId": 9,
+      "updatedBrandName": "변경된 브랜드명"
+    }
+  ]
+}
+
+### 브랜드 삭제
+DELETE http://localhost:8080/operation/v1/brands
+Content-Type: application/json
+
+{
+  "targets": [
+    {
+      "brandId": 9
+    }
+  ]
+}

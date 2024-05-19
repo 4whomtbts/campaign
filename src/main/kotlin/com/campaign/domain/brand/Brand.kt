@@ -9,9 +9,9 @@ import jakarta.persistence.Id
 @Entity
 class Brand(
     @Column(name = "brand_name", nullable = false, length = 30)
-    val brandName: String,
+    var brandName: String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
-)
+) : BaseTimeEntity()

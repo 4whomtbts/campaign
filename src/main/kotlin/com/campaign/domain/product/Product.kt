@@ -1,5 +1,6 @@
 package com.campaign.domain.product
 
+import com.campaign.domain.BaseTimeEntity
 import com.campaign.domain.Brand
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Column
@@ -31,7 +32,7 @@ class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
-) {
+) : BaseTimeEntity() {
     enum class ProductCategory(
         val code: Int,
         val categoryKoreanName: String,
