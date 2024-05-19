@@ -2,12 +2,14 @@ package com.campaign.domain.product
 
 import com.campaign.domain.Brand
 import com.linecorp.kotlinjdsl.querymodel.jpql.path.Path
+import com.linecorp.kotlinjdsl.querymodel.jpql.path.Paths.path
+import com.linecorp.kotlinjdsl.querymodel.jpql.sort.Sort
+import com.linecorp.kotlinjdsl.querymodel.jpql.sort.Sorts
 import com.linecorp.kotlinjdsl.support.spring.data.jpa.repository.KotlinJdslJpqlExecutor
-import jakarta.persistence.EntityManager
+import org.springframework.data.domain.Pageable
 
 class ProductRepositoryImpl(
     private val executor: KotlinJdslJpqlExecutor,
-    private val entityManager: EntityManager,
 ) : ProductCustomRepository {
     override fun minPriceProductInAllCategories(): List<Product> =
         executor.findAll {
@@ -49,6 +51,31 @@ class ProductRepositoryImpl(
                 path(Product::category),
             )
         } as List<MinPriceProductInAllCategoryByBrand>
+
+    override fun selectMinPriceProductInCategory(category: Product.ProductCategory): Product? =
+        selectExtremumMinPriceProductInCategory(category, Sorts.asc(path(Product::price)))
+
+    override fun selectMaxPriceProductInCategory(category: Product.ProductCategory): Product? =
+        selectExtremumMinPriceProductInCategory(category, Sorts.desc(path(Product::price)))
+
+    private fun selectExtremumMinPriceProductInCategory(category: Product.ProductCategory, sort: Sort): Product? =
+        executor.findPage(Pageable.ofSize(1)) {
+            val product = entity(Product::class)
+            select(product)
+                .from(
+                    product,
+                    innerJoin(Product::brand),
+                )
+                .where(
+                    path(Product::category).eq(category),
+                )
+                .orderBy(sort)
+        }.content.let {
+            if (it.isEmpty()) {
+                return null
+            }
+            it.first()
+        }
 }
 
 private data class MinPriceProductInCategoryProjection(

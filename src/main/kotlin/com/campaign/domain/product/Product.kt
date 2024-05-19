@@ -34,7 +34,7 @@ class Product(
 ) {
     enum class ProductCategory(
         val code: Int,
-        val categoryName: String,
+        val categoryKoreanName: String,
     ) {
         TOP(0, "상의"),
         OUTWEAR(1, "아우터"),
@@ -48,7 +48,12 @@ class Product(
 
         companion object {
             fun ofCode(code: Int): ProductCategory =
-                values().find { it.code == code } ?: throw IllegalArgumentException("존재하지 않는 코드의 카테고리입니다.")
+                values().find { it.code == code }
+                    ?: throw IllegalArgumentException("존재하지 않는 코드의 카테고리입니다.")
+
+            fun ofKoreanName(koreanName: String): ProductCategory =
+                values().find { it.categoryKoreanName == koreanName }
+                    ?: throw IllegalArgumentException("존재하지 않는 이름의 카테고리입니다.")
         }
     }
 
