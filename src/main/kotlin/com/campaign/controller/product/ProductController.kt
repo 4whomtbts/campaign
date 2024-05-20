@@ -23,7 +23,7 @@ class ProductController(
     /**
      * API: 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
      */
-    @GetMapping("/min-price/all-categories/by-price")
+    @GetMapping("/min-total-price/all-categories/by-price")
     fun getMinTotalPriceForAllCategory(): MinTotalPriceForAllCategoryResponse {
         return MinTotalPriceForAllCategoryResponse(
             data = productPriceProvider.queryMinPriceToPurchaseAllCategory().let {

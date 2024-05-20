@@ -1,11 +1,11 @@
-###
-GET http://localhost:8080/api/v1/products/min-price/all-categories/by-price
+### 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
+GET http://localhost:8080/api/v1/products/min-total-price/all-categories/by-price
 Accept: application/json
 
-###
+### 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API
 GET http://localhost:8080/api/v1/products/min-total-price/all-categories/by-brand
 Accept: application/json
 
-###
+### 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
 GET http://localhost:8080/api/v1/products/min-max-price/categories?categoryName=상의
 Accept: application/json
